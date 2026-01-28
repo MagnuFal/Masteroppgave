@@ -51,7 +51,9 @@ def generate_images(n_images):
 
         im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\label\{k}.png")
 
-        raw = img.mean(axis=2).astype(np.uint8) * 255
+        raw = img.mean(axis=2).astype(np.uint8)
+
+        raw = ((raw / raw.max()) * 255).astype(np.uint8)
 
         im2 = Image.fromarray(raw)
 
