@@ -24,7 +24,7 @@ class DownPass(nn.Module):
     
         self.maxpool = nn.MaxPool2d(kernel_size=2)
         self.downpass = nn.Sequential(
-            self.maxpool(),
+            self.maxpool,
             DoubleConvolution(in_channels=in_channels, out_channels=out_channels)
         )
 
