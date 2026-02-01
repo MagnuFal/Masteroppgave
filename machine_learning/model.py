@@ -16,7 +16,7 @@ class DoubleConvolution(nn.Module):
         )
 
     def forward(self, x):
-        self.doubleconv(x)
+        return self.doubleconv(x)
 
 class DownPass(nn.Module):
     def __init__(self, in_channels, out_channels):
@@ -29,17 +29,17 @@ class DownPass(nn.Module):
         )
 
     def forward(self, x):
-        self.downpass(x)
+        return self.downpass(x)
 
 class UpPass(nn.Module):
     def __init__(self, in_channels, out_channels):
         super().__init__()
 
-        self.up = nn.ConvTranspose2d(in_channels=in_channels, out_channels=in_channels / 2, kernel_size=2, stride=2)
+        self.up = nn.ConvTranspose2d(in_channels=in_channels, out_channels=in_channels // 2, kernel_size=2, stride=2)
         self.double = DoubleConvolution(in_channels=in_channels, out_channels=out_channels)
 
     def forward(self, x1, x2):
-        self.up(x1)
+        x1 = self.up(x1)
 
         dy = x2.size()[2] - x1.size()[2]
         dx = x2.size()[3] - x1.size()[3]
@@ -57,7 +57,7 @@ class FinalConv(nn.Module):
         self.conv = nn.Conv2d(in_channels, out_channels, kernel_size=1)
 
     def forward(self, x):
-        self.conv(x)
+        return self.conv(x)
 
 
 class UNet(nn.Module):
@@ -78,13 +78,13 @@ class UNet(nn.Module):
     def forward(self, x):
         x1 = self.double_conv1(x)
         x2 = self.down_pass1(x1)
-        x3 = self.down_pass1(x2)
-        x4 = self.down_pass1(x3)
-        x5 = self.down_pass1(x4)
+        x3 = self.down_pass2(x2)
+        x4 = self.down_pass3(x3)
+        x5 = self.down_pass4(x4)
         x6 = self.up_pass1(x5, x4)
-        x7 = self.up_pass1(x6, x3)
-        x8 = self.up_pass1(x7, x2)
-        x9 = self.up_pass1(x8, x1)
+        x7 = self.up_pass2(x6, x3)
+        x8 = self.up_pass3(x7, x2)
+        x9 = self.up_pass4(x8, x1)
         x10 = self.double_conv2(x9)
 
         return x10

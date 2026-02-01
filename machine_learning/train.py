@@ -27,7 +27,7 @@ def train_model(model, epochs = 100, lr = 10**-3, batch_size = 8, val_percent = 
 
     loss_fn = nn.CrossEntropyLoss()
 
-    optimizer = optim.rmsprop(model.parameters(), lr)
+    optimizer = optim.RMSprop(model.parameters(), lr)
 
     size = len(train_loader.dataset)
     model.train()
