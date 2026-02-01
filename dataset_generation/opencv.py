@@ -25,7 +25,7 @@ width, height = 2560, 1790
 
 def generate_images(n_images):
     for k in range(n_images):
-        img = np.zeros((height, width, 3), dtype=np.uint8)
+        img = np.zeros((height, width), dtype=np.uint8)
 
         n_blobs = np.random.randint(1, 10)
         x_circle = np.random.randint(0, width, size=n_blobs)

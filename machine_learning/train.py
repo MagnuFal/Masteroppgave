@@ -33,6 +33,8 @@ def train_model(model, epochs = 100, lr = 10**-3, batch_size = 8, val_percent = 
     model.train()
     for batch, (X, y) in enumerate(train_loader):
         pred = model(X)
+        print(pred.shape, pred.dtype)
+        print(y.shape, y.dtype, y.min().item(), y.max().item())
         loss = loss_fn(pred, y)
 
         loss.backward()
