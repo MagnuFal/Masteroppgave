@@ -36,7 +36,7 @@ class UpPass(nn.Module):
         super().__init__()
 
         self.up = nn.ConvTranspose2d(in_channels=in_channels, out_channels=in_channels // 2, kernel_size=2, stride=2)
-        self.double = DoubleConvolution(in_channels=in_channels, out_channels=out_channels)
+        self.conv = DoubleConvolution(in_channels=in_channels, out_channels=out_channels)
 
     def forward(self, x1, x2):
         x1 = self.up(x1)
@@ -48,7 +48,7 @@ class UpPass(nn.Module):
 
         x_cat = torch.cat([x2, x1_pad], dim = 1)
 
-        return self.double(x_cat)
+        return self.conv(x_cat)
     
 class FinalConv(nn.Module):
     def __init__(self, in_channels, out_channels):

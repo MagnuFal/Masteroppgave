@@ -19,7 +19,7 @@ def blobs(img, x, y, r):
     x_lst, y_lst, r_lst = [x, x2, x3, x4], [y, y2, y3, y4], [r, r2, r3, r4]
 
     for i in range(4):
-        cv.circle(img, (x_lst[i], y_lst[i]), r_lst[i], (255, 0, 0), -1)
+        cv.circle(img, (x_lst[i], y_lst[i]), r_lst[i], 2, -1)
 
 width, height = 2560, 1790
 
@@ -42,21 +42,23 @@ def generate_images(n_images):
         end_angle = np.random.randint(start_angle, start_angle + 3, size=n_plates)
 
         for j in range(n_plates):
-            cv.ellipse(img, (x_plates[j], y_plates[j]), (major_axis_lenght[j], minor_axis_lenght[j]), angle[j], start_angle[j], end_angle[j], (0, 0, 255), -1)
+            cv.ellipse(img, (x_plates[j], y_plates[j]), (major_axis_lenght[j], minor_axis_lenght[j]), angle[j], start_angle[j], end_angle[j], 1, -1)
 
         for i in range(n_blobs):
             blobs(img, x_circle[i], y_circle[i], r_circle[i])
 
+        print(np.unique(img))
+
         im = Image.fromarray(img)
 
-        im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\label\{k}.png")
+        im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\train\label\{k}.png")
 
-        raw = img.mean(axis=2).astype(np.uint8)
+        raw = ((img > 0).astype(int)).astype(np.uint8)
 
-        raw = ((raw / raw.max()) * 255).astype(np.uint8)
+        print(np.unique(raw))
 
         im2 = Image.fromarray(raw)
 
-        im2.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\raw\{k}.png")
+        im2.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\train\raw\{k}.png")
 
 generate_images(100)
