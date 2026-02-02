@@ -18,15 +18,15 @@ class SyntheticDataset(Dataset):
         folder = Path(self.raw_dir)
         return len([p for p in folder.iterdir() if p.is_file()])
     
-    def __getitem__(self, index):
+    def __getitem__(self, index): # This function might need cleaning up, after implemented changes in opencv.py 
         raw_img_path = os.path.join(self.raw_dir, f"{index}.png")
         raw_image = read_image(raw_img_path)
-        raw_image = raw_image.float() / 255.0 # This line should maybe be removed since images are already [0, 1]
-        raw_image = raw_image.mean(dim=0, keepdim=True) # Greyscale
+        raw_image = raw_image.float() / 255.0 # This line should maybe be removed since images are already [0, 1]. Could slow down training if kept.
+        raw_image = raw_image.mean(dim=0, keepdim=True) # Greyscale. Is this line needed now?
         label_image_path = os.path.join(self.label_dir, f"{index}.png")
         label_image = read_image(label_image_path)
-        label_image = label_image.squeeze(0)
-        label_image = label_image.long()
+        label_image = label_image.squeeze(0) # This probably still needs to be here
+        label_image = label_image.long() # This one is maybe superficial
         if self.transform:
             raw_image = self.transform(raw_image)
         if self.label_transform:
