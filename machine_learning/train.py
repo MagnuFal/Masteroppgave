@@ -52,6 +52,8 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
     return test_loss  
 
 def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 20):
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model.to(device)
     best_val_loss = 100
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
