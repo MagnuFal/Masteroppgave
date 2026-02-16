@@ -7,7 +7,7 @@ from pathlib import Path
 def to_rgb(array):
     img = np.zeros((1790, 2560, 3))
 
-    red_channel = (array == 0).astype(np.uint8) * 255
+    red_channel = (array == 0).astype(np.uint8) * 0
     green_channel = (array == 1).astype(np.uint8) * 255
     blue_channel = (array == 2).astype(np.uint8) * 255
 

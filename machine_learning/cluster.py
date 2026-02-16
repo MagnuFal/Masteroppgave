@@ -4,6 +4,7 @@ from torch.utils.data import DataLoader, random_split
 from .train import optimization_loop, train_model, evaluate_model
 from .test import model_test
 import torch
+from torchinfo import summary
 
 
 if __name__ == "__main__":
@@ -28,6 +29,8 @@ if __name__ == "__main__":
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\best_model_3.pth"
     #optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader)
 
+    # --------------- Test ----------------------
+
     raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\raw"
     label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label"
 
@@ -36,7 +39,10 @@ if __name__ == "__main__":
     test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet()
-    checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\best_model_2.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\best_model_synthetic_dataset_2.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
     model_test(model, test_loader)
+
+    #model = UNet()
+    #summary(model, (1, 1, 224, 224))
