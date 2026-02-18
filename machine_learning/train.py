@@ -2,13 +2,6 @@ from dataset_generation import SyntheticDataset
 from .model import UNet
 import torch
 from torch import optim
-from torch.utils.data import Dataset
-from torchvision import datasets
-from torchvision.transforms import ToTensor
-from pathlib import Path
-import os
-from torchvision.io import decode_image
-from torch.utils.data import DataLoader, random_split
 import torch.nn as nn
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
@@ -57,7 +50,7 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
 
     return test_loss  
 
-def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 20, weights = None):
+def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 30, weights = None):
     model = model.to(device)
     best_val_loss = 100
     for k in range(epochs):
@@ -73,26 +66,4 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 20, weig
                 "loss" : val_loss
             }, save_path)
             print(f"Best Validation Loss Updated: {val_loss}")
-    print("Finished!")
-
-#if __name__ == "__main__":
-#    
-#    raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\train\raw"
-#    label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\train\label"
-#
-#    dataset = SyntheticDataset(raw_dir, label_dir)
-#
-#    val_percent = 0.1
-#
-#    n_val = int(len(dataset) * val_percent)
-#    n_train = len(dataset) - n_val
-#
-#    train_set, val_set = random_split(dataset, [n_train, n_val])
-#
-#    train_loader = DataLoader(train_set, shuffle=True)
-#    val_loader = DataLoader(val_set, shuffle=False)
-#
-#
-#    model = UNet()
-#    sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\best_model_1.pth"
-#    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader)
+    print(f"Finished! - Best Validation Loss: {val_loss}")

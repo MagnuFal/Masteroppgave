@@ -25,4 +25,4 @@ def model_test(model, tst_loader, loss_fn = nn.CrossEntropyLoss()):
             rgb = (rgb * 255).astype(np.uint8)
             #pred_array = pred_array.mean(dim=0, keepdim=True)
             im = Image.fromarray(rgb)
-            im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\synthetic_2_old\{index}.png")
+            im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\synthetic_2_with_class_weights\{index}.png")
