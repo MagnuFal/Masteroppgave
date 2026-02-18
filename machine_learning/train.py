@@ -63,7 +63,7 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 30, weig
                 "epoch" : k + 1,
                 "model_state_dict" : model.state_dict(),
                 "optimizer_state_dict" : opt_state_dict,
-                "loss" : val_loss
+                "loss" : best_val_loss
             }, save_path)
-            print(f"Best Validation Loss Updated: {val_loss}")
-    print(f"Finished! - Best Validation Loss: {val_loss}")
+            print(f"Best Validation Loss Updated: {best_val_loss}")
+    print(f"Finished! - Best Validation Loss: {best_val_loss}")

@@ -7,7 +7,7 @@ from PIL import Image
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def model_test(model, tst_loader, loss_fn = nn.CrossEntropyLoss()):
+def model_test(model, tst_loader, save_folder_path, loss_fn = nn.CrossEntropyLoss()):
     model.eval()
     size = len(tst_loader.dataset)
     num_batches = len(tst_loader)
@@ -25,4 +25,4 @@ def model_test(model, tst_loader, loss_fn = nn.CrossEntropyLoss()):
             rgb = (rgb * 255).astype(np.uint8)
             #pred_array = pred_array.mean(dim=0, keepdim=True)
             im = Image.fromarray(rgb)
-            im.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\synthetic_2_with_class_weights\{index}.png")
+            im.save(rf"{save_folder_path}\{index}.png")

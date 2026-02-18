@@ -9,8 +9,8 @@ from torchinfo import summary
 
 if __name__ == "__main__":
     
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset/train/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset/train/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset_2/train/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset_2/train/label"
 
     dataset = SyntheticDataset(raw_dir, label_dir)
 
@@ -27,23 +27,23 @@ if __name__ == "__main__":
     #training_weights = torch.tensor([0.356657, 30.526744, 6.119014])
 
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/sanity_check_18_02_26.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/synthetic_dataset_2_with_random_weights.pth"
     optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader)
 
     # --------------- Test ----------------------
 
-    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\synthetic_dataset_2\test\raw"
-    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\synthetic_dataset_2\test\label"
+    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\raw"
+    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label"
 #
     #dataset = SyntheticDataset(raw_dir, label_dir)
 #
     #test_loader = DataLoader(dataset, shuffle=False)
 #
     #model = UNet()
-    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\with_class_weights_synthetic_2.pth", weights_only=True, map_location=torch.device('cpu'))
+    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\sanity_check_18_02_26.pth", weights_only=True, map_location=torch.device('cpu'))
     #model.load_state_dict(checkpoint['model_state_dict'])
 #
-    #model_test(model, test_loader)
+    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\sanity_check_18_02_26")
 
     #model = UNet()
     #summary(model, (1, 1, 224, 224))
