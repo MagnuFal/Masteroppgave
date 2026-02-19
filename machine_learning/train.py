@@ -16,8 +16,8 @@ def train_model(model, tr_loader, lr = 10**-3, batch_size = 8, loss_fn = nn.Cros
         X = X.to(device)
         y = y.to(device)
         pred = model(X)
-        print(pred.shape, pred.dtype)
-        print(y.shape, y.dtype, y.min().item(), y.max().item())
+        #print(pred.shape, pred.dtype)
+        #print(y.shape, y.dtype, y.min().item(), y.max().item())
         loss = loss_fn(pred, y)
 
         loss.backward()
@@ -50,7 +50,7 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
 
     return test_loss  
 
-def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 30, weights = None):
+def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None):
     model = model.to(device)
     best_val_loss = 100
     for k in range(epochs):
