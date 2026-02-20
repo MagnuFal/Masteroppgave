@@ -60,5 +60,3 @@ def generate_images(n_images):
         im2 = Image.fromarray(raw)
 
         im2.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\train\raw\{k}.png")
-
-generate_images(100)
