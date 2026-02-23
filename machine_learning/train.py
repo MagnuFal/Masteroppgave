@@ -8,7 +8,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def train_model(model, tr_loader, lr = 10**-3, batch_size = 8, loss_fn = nn.CrossEntropyLoss()):
 
-    optimizer = optim.RMSprop(model.parameters(), lr)
+    optimizer = optim.RMSprop(model.parameters(), lr, momentum=0.9) # Using momentum now
 
     size = len(tr_loader.dataset)
     model.train()
