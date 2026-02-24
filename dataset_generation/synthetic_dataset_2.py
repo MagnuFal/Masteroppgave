@@ -71,9 +71,9 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
 
 script = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\script"
 needle = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\needles"
-raw = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\raw"
-label = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\label"
-v_raw = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\v_raw"
-v_label = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\v_label"
+raw = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\improved_synthetic_2\raw"
+label = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\improved_synthetic_2\label"
+v_raw = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\improved_synthetic_2\v_raw"
+v_label = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\script and needles\improved_synthetic_2\v_label"
 
 raw_and_label_from_folder(script, needle, raw, label, v_raw, v_label)

@@ -54,13 +54,13 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     weights = weights.to(device)
     file_path = Path(save_path)
     loss_log = f"{file_path.stem}.txt"
-    best_val_loss = 100
+    best_val_loss = 1000
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
         opt_state_dict = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
         with open(loss_log, "a") as f:
-            f.write(f"{k + 1}, {val_loss}")
+            f.write(f"{k + 1}, {val_loss}\n")
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save({
