@@ -3,6 +3,7 @@ from .model import UNet
 import torch
 from torch import optim
 import torch.nn as nn
+from pathlib import Path
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -16,8 +17,6 @@ def train_model(model, tr_loader, lr = 10**-3, batch_size = 8, loss_fn = nn.Cros
         X = X.to(device)
         y = y.to(device)
         pred = model(X)
-        #print(pred.shape, pred.dtype)
-        #print(y.shape, y.dtype, y.min().item(), y.max().item())
         loss = loss_fn(pred, y)
 
         loss.backward()
@@ -53,11 +52,15 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
 def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None):
     model = model.to(device)
     weights = weights.to(device)
+    file_path = Path(save_path)
+    loss_log = f"{file_path.stem}.txt"
     best_val_loss = 100
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
         opt_state_dict = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
+        with open(loss_log, "a") as f:
+            f.write(f"{k + 1}, {val_loss}")
         if val_loss < best_val_loss:
             best_val_loss = val_loss
             torch.save({
