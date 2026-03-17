@@ -5,7 +5,9 @@ from PIL import Image
 from pathlib import Path
 
 def to_rgb(array):
-    img = np.zeros((1790, 2560, 3))
+    h, w = array.shape
+
+    img = np.zeros((h, w, 3), dtype=np.uint8)
 
     red_channel = (array == 0).astype(np.uint8) * 0
     green_channel = (array == 1).astype(np.uint8) * 255
@@ -28,4 +30,5 @@ def folder_to_RGB(folder_path, save_folder_path):
         img = img
         img.save(save_folder / file.name)
 
-folder_to_RGB(r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\test_results\labels")
+if __name__ == "__main__":
+    folder_to_RGB(r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\test_results\labels")
