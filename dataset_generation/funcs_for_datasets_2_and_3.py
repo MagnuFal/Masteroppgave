@@ -59,6 +59,12 @@ def add_same_str_to_stem_in_folder(folder_path, str = None, str2 = None):
         modified_path = add_to_stem_of_file_path(file.resolve(), str, str2)
         file.rename(modified_path)
 
+def convert_folder_from_tif_to_png(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    for file in folder.iterdir():
+        img = Image.open(file)
+        img.save(f"{save_folder_path}\{file.stem}.png")
+
 def raw_and_label_from_folder(script_folder_path, needle_folder_path,
                                label_folder_path, v_label_folder_path,
                                raw_folder_path = None, v_raw_folder_path = None):
@@ -88,20 +94,4 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
 
 
 if __name__ == "__main__":
-    raw1 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\2m"
-    raw2 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\2pm"
-    raw3 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\2ps"
-    raw4 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\3pm"
-    raw5 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\3ps"
-    raw6 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\6m"
-    raw7 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\6pm"
-    raw8 = r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_before_correct_labels\raw\6ps"
-
-    add_same_str_to_stem_in_folder(raw1, "_2m", "Mask of ")
-    add_same_str_to_stem_in_folder(raw2, "_2pm", "Mask of ")
-    add_same_str_to_stem_in_folder(raw3, "_2ps", "Mask of ")
-    add_same_str_to_stem_in_folder(raw4, "_3pm", "Mask of ")
-    add_same_str_to_stem_in_folder(raw5, "_3ps", "Mask of ")
-    add_same_str_to_stem_in_folder(raw6, "_6m", "Mask of ")
-    add_same_str_to_stem_in_folder(raw7, "_6pm", "Mask of ")
-    add_same_str_to_stem_in_folder(raw8, "_6ps", "Mask of ")
+    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\raw2")

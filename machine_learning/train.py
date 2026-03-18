@@ -67,7 +67,7 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     best_val_loss = 0
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
-        opt_state_dict, train_loss = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weights))
+        opt_state_dict, train_loss = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weight=weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
         with open(loss_log, "a") as f:
             f.write(f"{k + 1}, {val_loss}, {train_loss}\n")

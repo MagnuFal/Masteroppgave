@@ -29,7 +29,7 @@ if __name__ == "__main__":
 #
     model = UNet()
     sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_first_run.pth"
-    checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\weights\improved_dataset_2_first_run.pth", weights_only=True, map_location=torch.device(device))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/weights/improved_dataset_2_first_run.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict'])
     optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights)
 
