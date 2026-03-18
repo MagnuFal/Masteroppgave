@@ -7,7 +7,7 @@ from pathlib import Path
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def train_model(model, tr_loader, lr = 10**-3, batch_size = 8, loss_fn = nn.CrossEntropyLoss()):
+def train_model(model, tr_loader, lr = 10**-3, batch_size = 1, loss_fn = nn.CrossEntropyLoss()):
 
     optimizer = optim.RMSprop(model.parameters(), lr, momentum=0.9) # Using momentum now
 
@@ -27,7 +27,7 @@ def train_model(model, tr_loader, lr = 10**-3, batch_size = 8, loss_fn = nn.Cros
             loss, current = loss.item(), batch * batch_size + len(X)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
     
-    return optimizer.state_dict()
+    return optimizer.state_dict(), loss
 
 def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
     model.eval()
@@ -49,25 +49,34 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
 
     return test_loss  
 
+def save_best_model(model, epoch, opt_state, best_loss, save_path):
+    torch.save({
+            "epoch" : epoch + 1,
+            "model_state_dict" : model.state_dict(),
+            "optimizer_state_dict" : opt_state,
+            "loss" : best_loss
+            }, save_path)
+
 def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None):
     model = model.to(device)
     weights = weights.to(device)
     file_path = Path(save_path)
     loss_log = f"{file_path.stem}.txt"
-    best_val_loss = 1000
+    with open(loss_log, "a") as f:
+        f.write(f"Epoch, Val_Loss, Train_Loss\n")
+    best_val_loss = 0
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
-        opt_state_dict = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weights))
+        opt_state_dict, train_loss = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
         with open(loss_log, "a") as f:
-            f.write(f"{k + 1}, {val_loss}\n")
-        if val_loss < best_val_loss:
+            f.write(f"{k + 1}, {val_loss}, {train_loss}\n")
+        if k == 0:
             best_val_loss = val_loss
-            torch.save({
-                "epoch" : k + 1,
-                "model_state_dict" : model.state_dict(),
-                "optimizer_state_dict" : opt_state_dict,
-                "loss" : best_val_loss
-            }, save_path)
+            save_best_model(model, k, opt_state_dict, best_val_loss, save_path)
+            print(f"Best Validation Loss Updated: {best_val_loss}")
+        elif val_loss < best_val_loss:
+            best_val_loss = val_loss
+            save_best_model(model, k, opt_state_dict, best_val_loss, save_path)
             print(f"Best Validation Loss Updated: {best_val_loss}")
     print(f"Finished! - Best Validation Loss: {best_val_loss}")
