@@ -2,6 +2,7 @@ import numpy as np
 from PIL import Image
 from .to_RGB import to_rgb
 from pathlib import Path
+from machine_learning.rgb_prediction_to_8_bit import rgb_to_8_bit
 
 def raw_image(needle_arr, script_arr):
 
@@ -94,4 +95,12 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
 
 
 if __name__ == "__main__":
-    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\raw2")
+    path = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\dataset_3_second_run"
+    folder = Path(path)
+    for file in folder.iterdir():
+        img = Image.open(file)
+        arr = np.asarray(img).astype(np.uint8)
+        arg_max = rgb_to_8_bit(arr, 2)
+        rgb = to_rgb(arg_max).astype(np.uint8)
+        img = Image.fromarray(rgb)
+        img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions_argmax\{file.stem}.png")

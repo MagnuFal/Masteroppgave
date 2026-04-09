@@ -24,3 +24,6 @@ def data_augmentation_from_folder(folder_path, save_folder_path):
     for i in range(len(arr_lst)):
         img = Image.fromarray(arr_lst[i].astype(np.uint8))
         img.save(rf"{save_folder_path}\{i}.png")
+
+if __name__ == "__main__":
+    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_augmented\label")
