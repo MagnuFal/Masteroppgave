@@ -95,7 +95,7 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
 
 
 if __name__ == "__main__":
-    path = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\dataset_3_second_run"
+    path = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\dataset_3_third_run_augmentations_100_epochs"
     folder = Path(path)
     for file in folder.iterdir():
         img = Image.open(file)
@@ -103,4 +103,4 @@ if __name__ == "__main__":
         arg_max = rgb_to_8_bit(arr, 2)
         rgb = to_rgb(arg_max).astype(np.uint8)
         img = Image.fromarray(rgb)
-        img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions_argmax\{file.stem}.png")
+        img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions_argmax\dataset_3_third_run_augmentations_100_epochs\{file.stem}.png")
