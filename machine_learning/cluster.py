@@ -10,8 +10,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == "__main__":
     
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/dataset_3_augmented/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/dataset_3_augmented/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/label"
 
     dataset = SyntheticDataset(raw_dir, label_dir)
 
@@ -25,12 +25,12 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True)
     val_loader = DataLoader(val_set, shuffle=False)
 #
-    training_weights = torch.tensor([0.345980, 25.150191, 14.306591])
+    training_weights = torch.tensor([0.352732, 34.183606, 7.367265])
 #
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/slurm_test.pth"
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/weights/dataset_3_second_run.pth", weights_only=True, map_location=torch.device(device))
-    model.load_state_dict(checkpoint['model_state_dict'])
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth"
+    #checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/weights/dataset_3_second_run.pth", weights_only=True, map_location=torch.device(device))
+    #model.load_state_dict(checkpoint['model_state_dict'])
     optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights)
 
     # --------------- Test ----------------------

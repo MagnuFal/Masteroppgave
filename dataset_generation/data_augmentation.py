@@ -26,4 +26,7 @@ def data_augmentation_from_folder(folder_path, save_folder_path):
         img.save(rf"{save_folder_path}\{i}.png")
 
 if __name__ == "__main__":
-    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\dataset_generation\dataset_3_augmented\label")
+    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\train_raw_redone_before_aug", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\improved_synthetic_2_redone_15_04\train\raw")
+    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\train_label_redone_before_aug", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\improved_synthetic_2_redone_15_04\train\label")
+    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\test_raw_redone_before_aug", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\improved_synthetic_2_redone_15_04\test\raw")
+    data_augmentation_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\test_label_redone_before_aug", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\script and needles\improved_synthetic_2\improved_synthetic_2_redone_15_04\test\label")
