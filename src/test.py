@@ -1,5 +1,5 @@
-from dataset_generation import SyntheticDataset
-from .model import UNet
+from dataset_class import SyntheticDataset
+from model import UNet
 import torch
 import torch.nn as nn
 import numpy as np

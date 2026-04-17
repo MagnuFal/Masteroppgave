@@ -1,8 +1,8 @@
 import numpy as np
 from PIL import Image
-from .to_RGB import to_rgb
+from to_RGB import to_rgb
 from pathlib import Path
-from machine_learning.rgb_prediction_to_8_bit import rgb_to_8_bit
+from rgb_prediction_to_8_bit import rgb_to_8_bit
 
 def raw_image(needle_arr, script_arr):
 
