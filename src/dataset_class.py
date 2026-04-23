@@ -66,26 +66,35 @@ class SyntheticDatasetAugmented(Dataset):
 
         zero_array = np.zeros((385, 2560))
 
-        raw_image = np.concatenate([raw_image, zero_array], dim=0)
-        raw_image = np.concatenate([zero_array, raw_image], dim=0)
+        raw_image = np.concatenate([raw_image, zero_array], axis=0)
+        raw_image = np.concatenate([zero_array, raw_image], axis=0)
 
-        raw_image = raw_image.float() / 255.0 # This line should maybe be removed since images are already [0, 1]. Could slow down training if kept.
         label_iter_folder = list(Path(self.label_dir).iterdir())
         label_image_path = label_iter_folder[index]
         label_img = Image.open(label_image_path)
         label_image = np.asarray(label_img)
 
-        label_image = np.concatenate([label_image, zero_array], dim=0)
-        label_image = np.concatenate([zero_array, label_image], dim=0)
+        label_image = np.concatenate([label_image, zero_array], axis=0)
+        label_image = np.concatenate([zero_array, label_image], axis=0)
 
-        label_image = label_image.squeeze(0) # This probably still needs to be here
-        label_image = label_image.long() # This one is maybe superficial
+        raw_image = raw_image[:, :, np.newaxis]
+        label_image = label_image[:, :, np.newaxis]
 
         transformed_data = transform_pipeline(image = raw_image, mask = label_image)
         raw_image = transformed_data["image"]
         label_image = transformed_data["mask"]
 
-        raw_image = torch.from_numpy(raw_image)
-        label_image = torch.from_numpy(label_image)
+        raw_image = torch.tensor(np.transpose(raw_image, (2, 0, 1)), dtype=torch.float32)
+        label_image = torch.tensor(np.transpose(label_image, (2, 0, 1)), dtype=torch.long)
+
+        label_image = torch.squeeze(label_image, dim = 0)
+
+        print(raw_image.shape)
+        print(label_image.shape)
+
+        #label_image = label_image.squeeze(0) # This probably still needs to be here
+        #label_image = label_image.long() # This one is maybe superficial
+#
+        #raw_image = raw_image.float / 255.0
 
         return raw_image, label_image
