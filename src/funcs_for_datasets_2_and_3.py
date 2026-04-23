@@ -95,12 +95,23 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
 
 
 if __name__ == "__main__":
-    path = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions\dataset_3_third_run_augmentations_100_epochs"
-    folder = Path(path)
-    for file in folder.iterdir():
-        img = Image.open(file)
-        arr = np.asarray(img).astype(np.uint8)
-        arg_max = rgb_to_8_bit(arr, 2)
-        rgb = to_rgb(arg_max).astype(np.uint8)
-        img = Image.fromarray(rgb)
-        img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\predictions_argmax\dataset_3_third_run_augmentations_100_epochs\{file.stem}.png")
+    #path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions"
+    #folder = Path(path)
+    #for file in folder.iterdir():
+    #    img = Image.open(file)
+    #    arr = np.asarray(img).astype(np.uint8)
+    #    arg_max = rgb_to_8_bit(arr, 2).astype(np.uint8)
+    #    #rgb = to_rgb(arg_max).astype(np.uint8)
+    #    #img = Image.fromarray(rgb)
+    #    img = Image.fromarray(arg_max)
+    #    img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions_argmax\{file.stem}.png")
+
+    #folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label"
+    #folder = Path(folder_path)
+    #for file in folder.iterdir():
+    #    img = Image.open(file)
+    #    arr = np.asarray(img).astype(np.uint8)
+    #    rgb = to_rgb(arr)
+    #    img = Image.fromarray(rgb)
+    #    img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label_v\{file.stem}.png")
+    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\src\dataset_3_before_correct_labels\final_raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\src\dataset_3_before_correct_labels\raw_png")

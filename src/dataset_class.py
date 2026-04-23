@@ -8,6 +8,8 @@ from torchvision.io import read_image
 from torch.utils.data import DataLoader
 from torchvision.transforms import v2
 import albumentations as A
+import numpy as np
+from PIL import Image
 
 class SyntheticDataset(Dataset):
     def __init__(self, raw_dir, label_dir, transfrom = None, label_transform = None):
@@ -40,12 +42,17 @@ class SyntheticDataset(Dataset):
 
         return raw_image, label_image
     
+
+transform_pipeline = A.Compose([
+    A.RandomCrop(width=700, height=700, p=0.3),
+    A.RandomRotate90(p=1),
+    A.VerticalFlip(p=0.5),
+])
+    
 class SyntheticDatasetAugmented(Dataset):
-    def __init__(self, raw_dir, label_dir, transform = None, label_transform = None):
+    def __init__(self, raw_dir, label_dir):
         self.raw_dir = raw_dir
         self.label_dir = label_dir
-        self.transform = transform
-        self.label_transform = label_transform
 
     def __len__(self):
         folder = Path(self.raw_dir)
@@ -54,17 +61,31 @@ class SyntheticDatasetAugmented(Dataset):
     def __getitem__(self, index): # This function might need cleaning up, after implemented changes in opencv.py 
         raw_iter_folder = list(Path(self.raw_dir).iterdir())
         raw_img_path = raw_iter_folder[index]
-        raw_image = read_image(raw_img_path)
+        raw_img = Image.open(raw_img_path)
+        raw_image = np.asarray(raw_img)
+
+        zero_array = np.zeros((385, 2560))
+
+        raw_image = np.concatenate([raw_image, zero_array], dim=0)
+        raw_image = np.concatenate([zero_array, raw_image], dim=0)
+
         raw_image = raw_image.float() / 255.0 # This line should maybe be removed since images are already [0, 1]. Could slow down training if kept.
-        raw_image = raw_image.mean(dim=0, keepdim=True) # Greyscale. Is this line needed now?
         label_iter_folder = list(Path(self.label_dir).iterdir())
         label_image_path = label_iter_folder[index]
-        label_image = read_image(label_image_path)
+        label_img = Image.open(label_image_path)
+        label_image = np.asarray(label_img)
+
+        label_image = np.concatenate([label_image, zero_array], dim=0)
+        label_image = np.concatenate([zero_array, label_image], dim=0)
+
         label_image = label_image.squeeze(0) # This probably still needs to be here
         label_image = label_image.long() # This one is maybe superficial
-        if self.transform:
-            raw_image = self.transform(raw_image)
-        if self.label_transform:
-            label_image = self.label_transform(label_image)
+
+        transformed_data = transform_pipeline(image = raw_image, mask = label_image)
+        raw_image = transformed_data["image"]
+        label_image = transformed_data["mask"]
+
+        raw_image = torch.from_numpy(raw_image)
+        label_image = torch.from_numpy(label_image)
 
         return raw_image, label_image
