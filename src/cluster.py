@@ -25,8 +25,8 @@ if __name__ == "__main__":
 
     train_set, val_set = random_split(dataset, [n_train, n_val])
 
-    train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
-    val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
+    train_loader = DataLoader(train_set, shuffle=True, batch_size=8)
+    val_loader = DataLoader(val_set, shuffle=False, batch_size=8)
 #
     training_weights = torch.tensor([0.343073, 30.572882, 19.060775])
 #

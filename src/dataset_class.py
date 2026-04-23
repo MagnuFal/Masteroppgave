@@ -10,6 +10,7 @@ from torchvision.transforms import v2
 import albumentations as A
 import numpy as np
 from PIL import Image
+import cv2
 
 class SyntheticDataset(Dataset):
     def __init__(self, raw_dir, label_dir, transfrom = None, label_transform = None):
@@ -47,6 +48,7 @@ transform_pipeline = A.Compose([
     A.RandomCrop(width=700, height=700, p=0.3),
     A.RandomRotate90(p=1),
     A.VerticalFlip(p=0.5),
+    A.Resize(height=2560, width=2560, interpolation=cv2.INTER_NEAREST, mask_interpolation=cv2.INTER_NEAREST, p=1),
 ])
     
 class SyntheticDatasetAugmented(Dataset):
