@@ -48,7 +48,7 @@ transform_pipeline = A.Compose([
     A.RandomCrop(width=700, height=700, p=0.3),
     A.RandomRotate90(p=1),
     A.VerticalFlip(p=0.5),
-    A.Resize(height=2560, width=2560, interpolation=cv2.INTER_NEAREST, mask_interpolation=cv2.INTER_NEAREST, p=1),
+    #A.Resize(height=2560, width=2560, interpolation=cv2.INTER_NEAREST, mask_interpolation=cv2.INTER_NEAREST, p=1),
 ])
     
 class SyntheticDatasetAugmented(Dataset):
@@ -66,18 +66,18 @@ class SyntheticDatasetAugmented(Dataset):
         raw_img = Image.open(raw_img_path)
         raw_image = np.asarray(raw_img)
 
-        zero_array = np.zeros((385, 2560))
+        #zero_array = np.zeros((385, 2560))
 
-        raw_image = np.concatenate([raw_image, zero_array], axis=0)
-        raw_image = np.concatenate([zero_array, raw_image], axis=0)
+        #raw_image = np.concatenate([raw_image, zero_array], axis=0)
+        #raw_image = np.concatenate([zero_array, raw_image], axis=0)
 
         label_iter_folder = list(Path(self.label_dir).iterdir())
         label_image_path = label_iter_folder[index]
         label_img = Image.open(label_image_path)
         label_image = np.asarray(label_img)
 
-        label_image = np.concatenate([label_image, zero_array], axis=0)
-        label_image = np.concatenate([zero_array, label_image], axis=0)
+        #label_image = np.concatenate([label_image, zero_array], axis=0)
+        #label_image = np.concatenate([zero_array, label_image], axis=0)
 
         raw_image = raw_image[:, :, np.newaxis]
         label_image = label_image[:, :, np.newaxis]
