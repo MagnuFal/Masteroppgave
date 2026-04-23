@@ -31,4 +31,4 @@ def folder_to_RGB(folder_path, save_folder_path):
         img.save(save_folder / file.name)
 
 if __name__ == "__main__":
-    folder_to_RGB(r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\test_results\labels")
+    folder_to_RGB(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run_predictions", r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\test_results\labels")

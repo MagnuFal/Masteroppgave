@@ -82,9 +82,9 @@ class SyntheticDatasetAugmented(Dataset):
         raw_image = raw_image[:, :, np.newaxis]
         label_image = label_image[:, :, np.newaxis]
 
-        transformed_data = transform_pipeline(image = raw_image, mask = label_image)
-        raw_image = transformed_data["image"]
-        label_image = transformed_data["mask"]
+        #transformed_data = transform_pipeline(image = raw_image, mask = label_image)
+        #raw_image = transformed_data["image"]
+        #label_image = transformed_data["mask"]
 
         raw_image = torch.tensor(np.transpose(raw_image, (2, 0, 1)), dtype=torch.float32)
         label_image = torch.tensor(np.transpose(label_image, (2, 0, 1)), dtype=torch.long)

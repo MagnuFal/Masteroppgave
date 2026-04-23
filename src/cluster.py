@@ -28,18 +28,18 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 #
-    training_weights = torch.tensor([0.343073, 30.572882, 19.060775])
+    training_weights = torch.tensor([0.347441, 21.377133, 13.327651])
 #
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_second_run.pth"
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict'])
     optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights)
 
     # --------------- Test ----------------------
 
-    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\raw"
-    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label"
+    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\raw"
+    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label"
 #
 #
     #dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
@@ -47,9 +47,9 @@ if __name__ == "__main__":
     #test_loader = DataLoader(dataset, shuffle=False)
 #
     #model = UNet()
-    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device('cpu'))
+    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device('cpu'))
     #model.load_state_dict(checkpoint['model_state_dict'])
 #
-    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions")
+    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run_predictions")
     #model = UNet()
     #summary(model, (1, 1, 224, 224))
