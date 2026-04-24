@@ -45,14 +45,9 @@ class SyntheticDataset(Dataset):
     
 
 transform_pipeline = A.Compose([
-    A.OneOf([
-        A.RandomCrop(width=1500, height=1500, p=0.25),
-        A.RandomCrop(width=1000, height=1000, p=0.25),
-        A.RandomCrop(width=700, height=700, p=0.25),
-        A.RandomCrop(width=400, height=400, p=0.25),], p=0.7
-    ),
-    A.RandomRotate90(p=1),
-    A.VerticalFlip(p=0.5),
+        A.RandomCrop(width=700, height=700, p=1),
+        A.RandomRotate90(p=1),
+        A.VerticalFlip(p=0.5),
 ])
     
 class SyntheticDatasetAugmented(Dataset):
