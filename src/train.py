@@ -8,13 +8,13 @@ import torch.optim.lr_scheduler as lr_scheduler
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-def train_model(model, tr_loader, lr = 10**-3, batch_size = 1, loss_fn = nn.CrossEntropyLoss()):
+def train_model(model, tr_loader, optimizer, scheduler, batch_size = 1, loss_fn = nn.CrossEntropyLoss()):
 
-    optimizer = optim.RMSprop(model.parameters(), lr, momentum=0.9) # Using momentum now
+
 
     size = len(tr_loader.dataset)
     model.train()
-    scheduler = lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+
     for batch, (X, y) in enumerate(tr_loader):
         X = X.to(device)
         y = y.to(device)
@@ -59,7 +59,7 @@ def save_best_model(model, epoch, opt_state, best_loss, save_path):
             "loss" : best_loss
             }, save_path)
 
-def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None):
+def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None, lr = 10**-3):
     model = model.to(device)
     weights = weights.to(device)
     file_path = Path(save_path)
@@ -67,9 +67,13 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     with open(loss_log, "a") as f:
         f.write(f"Epoch, Val_Loss, Train_Loss, lr\n")
     best_val_loss = 0
+
+    optimizer = optim.RMSprop(model.parameters(), lr, momentum=0.9) # Using momentum now
+    scheduler = lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
-        opt_state_dict, train_loss = train_model(model, tr_loader, loss_fn=nn.CrossEntropyLoss(weight=weights))
+        opt_state_dict, train_loss = train_model(model, tr_loader, optimizer=optimizer, scheduler=scheduler, loss_fn=nn.CrossEntropyLoss(weight=weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
         with open(loss_log, "a") as f:
             f.write(f"{k + 1}, {val_loss}, {train_loss}, {opt_state_dict['param_groups'][0]['lr']}\n")
