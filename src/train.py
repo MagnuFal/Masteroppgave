@@ -69,7 +69,7 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     best_val_loss = 0
 
     optimizer = optim.RMSprop(model.parameters(), lr, momentum=0.9) # Using momentum now
-    scheduler = lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+    scheduler = lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
 
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")

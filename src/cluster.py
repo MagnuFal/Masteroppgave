@@ -28,10 +28,10 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 #
-    training_weights = torch.tensor([0.347441, 21.377133, 13.327651])
+    training_weights = torch.tensor([0.003304, 0.203288, 0.126741])
 #
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_third_run_lr_scheduling_and_grad_accum_one_crop.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_fifth_run_normalized_class_weights.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict'])
@@ -48,9 +48,9 @@ if __name__ == "__main__":
     #test_loader = DataLoader(dataset, shuffle=False)
 #
     #model = UNet()
-    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_third_run_lr_scheduling_and_grad_accum\dataset_3_improved_third_run_lr_scheduling_and_grad_accum.pth", weights_only=True, map_location=torch.device('cpu'))
+    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_fourth_run_one_crop\dataset_3_improved_third_run_lr_scheduling_and_grad_accum_one_crop.pth", weights_only=True, map_location=torch.device('cpu'))
     #model.load_state_dict(checkpoint['model_state_dict'])
 #
-    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_third_run_lr_scheduling_and_grad_accum\predictions")
+    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_fourth_run_one_crop\predictions")
     #model = UNet()
     #summary(model, (1, 1, 224, 224))

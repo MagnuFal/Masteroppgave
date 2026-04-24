@@ -21,7 +21,7 @@ def predictions_argmax_from_folder(folder_path, save_folder_path1, save_folder_p
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
 if __name__ == "__main__":
-    predictions_argmax_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_third_run_lr_scheduling_and_grad_accum\predictions",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_third_run_lr_scheduling_and_grad_accum\predictions_argmax",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_third_run_lr_scheduling_and_grad_accum\predictions_argmax_v")
+    predictions_argmax_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_fourth_run_one_crop\predictions",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_fourth_run_one_crop\predictions_argmax",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_fourth_run_one_crop\predictions_argmax_v")
         
