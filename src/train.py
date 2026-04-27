@@ -10,13 +10,11 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def train_model(model, tr_loader, optimizer, scheduler, batch_size = 1, loss_fn = nn.CrossEntropyLoss()):
 
-
-
     size = len(tr_loader.dataset)
     model.train()
 
     for batch, (X, y) in enumerate(tr_loader):
-        X = X.to(device)
+        X = torch.tensor(X, requires_grad=True).to(device)
         y = y.to(device)
         pred = model(X)
         loss = loss_fn(pred, y)
@@ -29,7 +27,7 @@ def train_model(model, tr_loader, optimizer, scheduler, batch_size = 1, loss_fn 
             loss, current = loss.item(), batch * batch_size + len(X)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
     scheduler.step()
-    return optimizer.state_dict(), loss
+    return optimizer.state_dict(), loss, X.grad
 
 def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
     model.eval()
@@ -65,18 +63,18 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     file_path = Path(save_path)
     loss_log = f"{file_path.stem}.txt"
     with open(loss_log, "a") as f:
-        f.write(f"Epoch, Val_Loss, Train_Loss, lr\n")
+        f.write(f"Epoch, Val_Loss, Train_Loss, lr, X.grad\n")
     best_val_loss = 0
 
-    optimizer = optim.AdamW(model.parameters(), lr)
+    optimizer = optim.AdamW(model.parameters(), lr, momentum = 0.5, nesterov = True)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
 
     for k in range(epochs):
         print(f"---------- Epoch {k + 1} ----------")
-        opt_state_dict, train_loss = train_model(model, tr_loader, optimizer=optimizer, scheduler=scheduler, loss_fn=nn.CrossEntropyLoss(weight=weights))
+        opt_state_dict, train_loss, input_grad = train_model(model, tr_loader, optimizer=optimizer, scheduler=scheduler, loss_fn=nn.CrossEntropyLoss(weight=weights))
         val_loss = evaluate_model(model, vl_loader) # Removed bvl=best_val_loss
         with open(loss_log, "a") as f:
-            f.write(f"{k + 1}, {val_loss}, {train_loss}, {opt_state_dict['param_groups'][0]['lr']}\n")
+            f.write(f"{k + 1}, {val_loss}, {train_loss}, {opt_state_dict['param_groups'][0]['lr']}, {input_grad}\n")
         if k == 0:
             best_val_loss = val_loss
             save_best_model(model, k, opt_state_dict, best_val_loss, save_path)
