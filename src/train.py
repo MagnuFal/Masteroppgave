@@ -21,13 +21,14 @@ def train_model(model, tr_loader, optimizer, scheduler, batch_size = 1, loss_fn 
         loss.backward()
         if batch % 8 == 0:
             optimizer.step()
+            x_grad = X.grad
             optimizer.zero_grad()
 
         if batch % 10 == 0:
             loss, current = loss.item(), batch * batch_size + len(X)
             print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
     scheduler.step()
-    return optimizer.state_dict(), loss, X.grad
+    return optimizer.state_dict(), loss, x_grad
 
 def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
     model.eval()
