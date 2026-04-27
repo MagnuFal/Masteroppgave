@@ -28,7 +28,7 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 #
-    training_weights = torch.tensor([0.589441, 4.623541, 3.650706])
+    training_weights = torch.tensor([0.349487, 25.037639, 10.129538])
 #
     model = UNet()
     sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_plus_2_first_run.pth"
