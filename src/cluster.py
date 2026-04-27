@@ -31,7 +31,7 @@ if __name__ == "__main__":
     training_weights = torch.tensor([0.589441, 4.623541, 3.650706])
 #
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_7th_run_AdamW.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_8th_run_momentum_and_1200x1200_crops.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict'])
