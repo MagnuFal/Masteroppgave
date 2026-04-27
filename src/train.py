@@ -66,7 +66,7 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
         f.write(f"Epoch, Val_Loss, Train_Loss, lr, X.grad\n")
     best_val_loss = 0
 
-    optimizer = optim.AdamW(model.parameters(), lr, momentum = 0.5, nesterov = True)
+    optimizer = optim.AdamW(model.parameters(), lr)
     scheduler = lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.5)
 
     for k in range(epochs):
