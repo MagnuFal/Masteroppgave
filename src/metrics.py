@@ -18,7 +18,7 @@ def confusion_matrix_one_image(pred_path, label_path):
     pred_flatten = pred.flatten()
     label_flatten = label.flatten()
 
-    disp = ConfusionMatrixDisplay.from_predictions(y_true=label_flatten, y_pred=pred_flatten)
+    disp = ConfusionMatrixDisplay.from_predictions(y_true=label_flatten, y_pred=pred_flatten, normalize = "true")
     plt.show()
 
 

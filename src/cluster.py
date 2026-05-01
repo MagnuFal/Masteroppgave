@@ -10,8 +10,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == "__main__":
     
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_plus_2/train/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_plus_2/train/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase extraction/train/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase extraction/train/label"
 
     #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\sanity_test\raw"
     #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\sanity_test\label"
@@ -28,13 +28,13 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 #
-    training_weights = torch.tensor([0.349487, 25.037639, 10.129538])
+    training_weights = torch.tensor([0.346777, 8.598215])
 #
-    model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_plus_2_first_run.pth"
+    model = UNet(n_classes=2)
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/two_step_model_phase_extraction_run_1.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
-    model.load_state_dict(checkpoint['model_state_dict'])
+    #checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
+    #model.load_state_dict(checkpoint['model_state_dict'])
     optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 300)
 
     # --------------- Test ----------------------
