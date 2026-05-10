@@ -93,7 +93,7 @@ class UNet(nn.Module):
 
 class DeepUNet(nn.Module):
     def __init__(self, n_input_channels = 1, n_classes = 3):
-        super(UNet, self).__init__()
+        super(DeepUNet, self).__init__()
 
         self.double_conv1 = DoubleConvolution(n_input_channels, 64)
         self.down_pass1 = DownPass(64, 128)
