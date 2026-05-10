@@ -88,3 +88,38 @@ class UNet(nn.Module):
         x10 = self.double_conv2(x9)
 
         return x10
+    
+
+
+class DeepUNet(nn.Module):
+    def __init__(self, n_input_channels = 1, n_classes = 3):
+        super(UNet, self).__init__()
+
+        self.double_conv1 = DoubleConvolution(n_input_channels, 64)
+        self.down_pass1 = DownPass(64, 128)
+        self.down_pass2 = DownPass(128, 256)
+        self.down_pass3 = DownPass(256, 512)
+        self.down_pass4 = DownPass(512, 1024)
+        self.down_pass5 = DownPass(1024, 2048)
+        self.up_pass1 = UpPass(2048, 1024)
+        self.up_pass2 = UpPass(1024, 512)
+        self.up_pass3 = UpPass(512, 256)
+        self.up_pass4 = UpPass(256, 128)
+        self.up_pass5 = UpPass(128, 64)
+        self.double_conv2 = FinalConv(64, n_classes)
+
+    def forward(self, x):
+        x1 = self.double_conv1(x)
+        x2 = self.down_pass1(x1)
+        x3 = self.down_pass2(x2)
+        x4 = self.down_pass3(x3)
+        x5 = self.down_pass4(x4)
+        x6 = self.down_pass5(x5)
+        x7 = self.up_pass1(x6, x5)
+        x8 = self.up_pass1(x7, x4)
+        x9 = self.up_pass2(x8, x3)
+        x10 = self.up_pass3(x9, x2)
+        x11 = self.up_pass4(x10, x1)
+        x12 = self.double_conv2(x11)
+
+        return x12
