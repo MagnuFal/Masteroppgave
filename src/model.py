@@ -116,10 +116,10 @@ class DeepUNet(nn.Module):
         x5 = self.down_pass4(x4)
         x6 = self.down_pass5(x5)
         x7 = self.up_pass1(x6, x5)
-        x8 = self.up_pass1(x7, x4)
-        x9 = self.up_pass2(x8, x3)
-        x10 = self.up_pass3(x9, x2)
-        x11 = self.up_pass4(x10, x1)
+        x8 = self.up_pass2(x7, x4)
+        x9 = self.up_pass3(x8, x3)
+        x10 = self.up_pass4(x9, x2)
+        x11 = self.up_pass5(x10, x1)
         x12 = self.double_conv2(x11)
 
         return x12
