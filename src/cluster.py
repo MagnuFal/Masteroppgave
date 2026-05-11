@@ -10,8 +10,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == "__main__":
     
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/train/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/train/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/train/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/train/label"
 
     #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\sanity_test\raw"
     #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\sanity_test\label"
@@ -28,14 +28,14 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 #
-    training_weights = torch.tensor([0.352732, 34.183606, 7.367265])
+    training_weights = torch.tensor([0.343073, 30.572882, 19.060775])
 #
     model = DeepUNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/improved_synthetic_2_redone_15_04_DeepUNet.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_DeepUNet_run_1.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
-    #checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
-    #model.load_state_dict(checkpoint['model_state_dict'])
-    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 300)
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/improved_synthetic_2_redone_15_04_DeepUNet.pth", weights_only=True, map_location=torch.device(device))
+    model.load_state_dict(checkpoint['model_state_dict'])
+    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 500)
 
     # --------------- Test ----------------------
 
