@@ -19,6 +19,12 @@ def to_rgb(array):
 
     return img
 
+def to_bw(array):
+
+    array = (array * 255).astype(np.uint8)
+
+    return array
+
 def folder_to_RGB(folder_path, save_folder_path):
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
@@ -30,5 +36,16 @@ def folder_to_RGB(folder_path, save_folder_path):
         img = img
         img.save(save_folder / file.name)
 
+def folder_to_bw(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+    
+
+    for file in folder.iterdir():
+        arr = np.asarray(Image.open(file))
+        bw = to_bw(arr).astype(np.uint8)
+        img = Image.fromarray(bw)
+        img.save(save_folder / file.name)
+
 if __name__ == "__main__":
-    folder_to_RGB(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run_predictions", r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\test_results\labels")
+    folder_to_bw(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\train\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\train\raw_v")

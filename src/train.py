@@ -60,7 +60,8 @@ def save_best_model(model, epoch, opt_state, best_loss, save_path):
 
 def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, weights = None, lr = 10**-3):
     model = model.to(device)
-    weights = weights.to(device)
+    if weights != None:
+        weights = weights.to(device)
     file_path = Path(save_path)
     loss_log = f"{file_path.stem}.txt"
     with open(loss_log, "a") as f:
