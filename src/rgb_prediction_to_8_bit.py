@@ -3,10 +3,42 @@ from pathlib import Path
 from PIL import Image
 from to_RGB import to_rgb
 
+
+## Her er det mye overflødighet -> Lag funksjoner
+
 def rgb_to_8_bit(three_channel_tensor, axis = 2):
     pred_array = np.asarray(three_channel_tensor)
     
     return np.argmax(pred_array, axis=axis)
+
+def confidence_threshold_rgb_to_8_bit(three_channel_array, axis = 2, script_threshold = 0.7, background_threshold = 0.60):
+    pred_array = np.asarray(three_channel_array).copy()
+    
+    #script_pred_array = pred_array[:, :, 2]
+#
+    #threshold = threshold * 255
+#
+    #overwrite_array = (script_pred_array > threshold).astype(int)
+    #script_array = (overwrite_array * 2).astype(np.uint8)
+#
+    #argmax = np.argmax(pred_array, axis=axis).astype(np.uint8)
+#
+    #argmax = argmax - script_array
+    #argmax[argmax < 0] = 0
+#
+    #return (argmax + script_array).astype(np.uint8)
+
+    script_array = pred_array[:, :, 2]
+    background_array = pred_array[:, :, 0]
+
+    script_array[script_array > (script_threshold * 255)] = 255
+    script_array[background_array > (background_threshold * 255)] = 0
+
+    pred_array[:, :, 2] = script_array
+
+    return np.argmax(pred_array, axis=axis)
+    
+
 
 def predictions_argmax_from_folder_rgb(folder_path, save_folder_path1, save_folder_path2):
     folder = Path(folder_path)
@@ -33,8 +65,21 @@ def predictions_argmax_from_folder_binary(folder_path, save_folder_path1, save_f
         argmax.save(f"{save_folder_path1}\{file.stem}.png")
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
+
+def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1, save_folder_path2):
+    folder = Path(folder_path)
+    for file in folder.iterdir():
+        img = Image.open(file)
+        arr = np.asarray(img)
+        eight_bit = confidence_threshold_rgb_to_8_bit(arr).astype(np.uint8)
+        argmax = Image.fromarray(eight_bit)
+        rgb = to_rgb(eight_bit).astype(np.uint8)
+        argmax_v = Image.fromarray(rgb)
+        argmax.save(f"{save_folder_path1}\{file.stem}.png")
+        argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
+
 if __name__ == "__main__":
-    predictions_argmax_from_folder_binary(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction run 1\predictions",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction run 1\predictions_argmax",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction run 1\predictions_argmax_v")
+    confidence_predictions_argmax_from_folder_rgb(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run_predictions",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\confidence_threshold_argmax",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\confidence_threshold_argmax_v")
         

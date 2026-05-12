@@ -30,29 +30,28 @@ if __name__ == "__main__":
 #
     training_weights = torch.tensor([0.343073, 30.572882, 19.060775])
 #
-    model = DeepUNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_DeepUNet_run_1.pth"
+    model = UNet()
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/from_first_run_checkpoint_decreased_lr_12_05.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/improved_synthetic_2_redone_15_04_DeepUNet.pth", weights_only=True, map_location=torch.device(device))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict'])
-    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 500)
+    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=None, epochs= 200, lr=10**-4)
 
     # --------------- Test ----------------------
 
-    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\two-step model datasets\step 1 phase extraction\test\raw"
-    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\two-step model datasets\step 1 phase extraction\test\label"
-
-    #raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/raw"
-    #label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/label"
+    #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\raw"
+    #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label"
+    ##raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/raw"
+    ##label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/label"
 #
     #dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
 #
     #test_loader = DataLoader(dataset, shuffle=False)
 #
-    #model = UNet(n_classes=2)
-    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction run 1\two_step_model_phase_extraction_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
+    #model = DeepUNet()
+    #checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_DeepUNet run 1\dataset_3_improved_DeepUNet_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
     #model.load_state_dict(checkpoint['model_state_dict'])
 #
-    #model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/predictions on training set of phase extraction")
+    #model_test(model, test_loader, save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_DeepUNet run 1\predictions")
     #model = UNet()
     #summary(model, (1, 1, 224, 224))
