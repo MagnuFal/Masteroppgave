@@ -41,8 +41,8 @@ if __name__ == "__main__":
 
     #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\raw"
     #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label"
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase extraction/train/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase extraction/train/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/train/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/train/label"
 
     dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
 

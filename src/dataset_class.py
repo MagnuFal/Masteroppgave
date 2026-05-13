@@ -100,4 +100,4 @@ class SyntheticDatasetAugmented(Dataset):
 #
         #raw_image = raw_image.float / 255.0
 
-        return raw_image, label_image
+        return raw_image, label_image, Path(raw_img_path).name
