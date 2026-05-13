@@ -13,7 +13,7 @@ def train_model(model, tr_loader, optimizer, scheduler, batch_size = 1, loss_fn 
     size = len(tr_loader.dataset)
     model.train()
 
-    for batch, (X, y) in enumerate(tr_loader):
+    for batch, (X, y, name) in enumerate(tr_loader):
         X = torch.tensor(X, requires_grad=True).to(device)
         y = y.to(device)
         pred = model(X)
@@ -37,7 +37,7 @@ def evaluate_model(model, vl_loader, loss_fn = nn.CrossEntropyLoss()):
     test_loss, correct = 0, 0
 
     with torch.no_grad():
-        for X, y in vl_loader: # Pass paa at det ikke blir feil siden
+        for X, y, name in vl_loader: # Pass paa at det ikke blir feil siden
             X = X.to(device) # jeg allerede har brukt X, y
             y = y.to(device) 
             pred = model(X)     
