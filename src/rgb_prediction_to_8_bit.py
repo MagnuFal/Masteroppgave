@@ -79,7 +79,15 @@ def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
 if __name__ == "__main__":
-    predictions_argmax_from_folder_rgb(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions_argmax",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions_argmax_v")
+    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase differentiation run 1\predictions_argmax"
+    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase differentiation run 1\predictions_argmax_v"
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for file in folder.iterdir():
+        img = Image.open(file)
+        arr = np.asarray(img)
+        rgb = to_rgb(arr)
+        img = Image.fromarray(rgb)
+        img.save(save_folder / file.name)
         
