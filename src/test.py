@@ -22,4 +22,4 @@ def model_test(model, tst_loader, save_folder_path):
             arr = pred_array[0]
             arr = np.argmax(arr, axis=0).astype(np.uint8)
             im = Image.fromarray(arr)
-            im.save(folder_path / name)
+            im.save(folder_path / name[0])
