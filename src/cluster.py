@@ -49,7 +49,7 @@ if __name__ == "__main__":
     test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet(n_classes=2)
-    checkpoint = torch.load(r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning\two_step_model_phase_extraction_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/two_step_model_phase_extraction_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
     model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/predictions on training set of phase extraction")
