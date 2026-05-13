@@ -4,6 +4,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 from PIL import Image
+from pathlib import Path
 
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -13,6 +14,7 @@ def model_test(model, tst_loader, save_folder_path, loss_fn = nn.CrossEntropyLos
     size = len(tst_loader.dataset)
     num_batches = len(tst_loader)
     test_loss, correct = 0, 0
+    folder_path = Path(save_folder_path)
 
     with torch.no_grad():
         for index, (X, y) in enumerate(tst_loader): 
@@ -26,4 +28,4 @@ def model_test(model, tst_loader, save_folder_path, loss_fn = nn.CrossEntropyLos
             rgb = (rgb * 255).astype(np.uint8)
             #pred_array = pred_array.mean(dim=0, keepdim=True)
             im = Image.fromarray(rgb)
-            im.save(rf"{save_folder_path}\{index}.png")
+            im.save(folder_path / f"{index}.png")
