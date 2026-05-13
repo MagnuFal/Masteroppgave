@@ -79,7 +79,7 @@ def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
 if __name__ == "__main__":
-    confidence_predictions_argmax_from_folder_rgb(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\dataset_3_improved_first_run_predictions",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\confidence_threshold_argmax",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\confidence_threshold_argmax_v")
+    predictions_argmax_from_folder_rgb(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions_argmax",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\from dataset_3_improved first run with decreased lr 12_05\predictions_argmax_v")
         
