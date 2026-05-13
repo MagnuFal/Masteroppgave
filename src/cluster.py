@@ -49,7 +49,7 @@ if __name__ == "__main__":
 
     test_loader = DataLoader(dataset, shuffle=False)
 
-    model = UNet()
+    model = UNet(n_classes=2)
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/two_step_model_phase_extraction_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
