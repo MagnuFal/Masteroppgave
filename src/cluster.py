@@ -45,16 +45,6 @@ if __name__ == "__main__":
     raw_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/raw"
     label_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/raw"
 
-    dataset = SyntheticDatasetAugmented(raw_dir1, label_dir1)
-
-    test_loader = DataLoader(dataset, shuffle=False)
-
-    model = UNet(n_classes=2)
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/two_step_model_phase_extraction_run_1.pth", weights_only=True, map_location=torch.device('cpu'))
-    model.load_state_dict(checkpoint['model_state_dict'])
-
-    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/extraction prediction")
-
     raw_dir2 = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/extraction prediction"
 
     dataset = SyntheticDatasetAugmented(raw_dir2, label_dir1)
@@ -62,10 +52,10 @@ if __name__ == "__main__":
     test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet()
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/phase_differentiation_first_run_13_05.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/differentiation prediction")
+    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/differentiation prediction with correct weights")
 
     #model = UNet()
     #summary(model, (1, 1, 224, 224))

@@ -79,8 +79,8 @@ def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
 if __name__ == "__main__":
-    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase differentiation run 1\predictions_argmax"
-    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase differentiation run 1\predictions_argmax_v"
+    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction and differentiation run 1 end-to-end test\differentiation prediction"
+    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\two-step model\phase extraction and differentiation run 1 end-to-end test\differentiation prediction visible"
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
 
