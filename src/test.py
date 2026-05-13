@@ -9,6 +9,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 def model_test(model, tst_loader, save_folder_path, loss_fn = nn.CrossEntropyLoss()):
     model.eval()
+    model.to(device)
     size = len(tst_loader.dataset)
     num_batches = len(tst_loader)
     test_loss, correct = 0, 0
