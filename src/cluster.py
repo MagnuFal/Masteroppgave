@@ -42,14 +42,14 @@ if __name__ == "__main__":
 
     #raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\two-step model datasets\step 2 phase differentiation\test\raw"
     #label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\two-step model datasets\step 2 phase differentiation\test\label"
-    raw_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/raw"
-    label_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/label"
+    raw_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/raw"
+    label_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/label"
 
     raw_dir2 = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/raw"
     label_dir2 = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04/label"
 
-    raw_dir3 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/raw"
-    label_dir3 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/label"
+    raw_dir3 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/test/raw"
+    label_dir3 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved/test/label"
 
     #raw_dir2 = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/phase extraction and differentiation run 1 end-to-end test/extraction prediction"
 
