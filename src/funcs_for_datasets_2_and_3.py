@@ -94,24 +94,27 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
             v_raw_img.save(f"{v_raw_folder_path}\{stem}.png")
 
 
-if __name__ == "__main__":
-    #path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions"
-    #folder = Path(path)
-    #for file in folder.iterdir():
-    #    img = Image.open(file)
-    #    arr = np.asarray(img).astype(np.uint8)
-    #    arg_max = rgb_to_8_bit(arr, 2).astype(np.uint8)
-    #    #rgb = to_rgb(arg_max).astype(np.uint8)
-    #    #img = Image.fromarray(rgb)
-    #    img = Image.fromarray(arg_max)
-    #    img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions_argmax\{file.stem}.png")
+def resize_all_SEM_images_in_folder(folder_path, save_folder_path, width, height):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
 
-    #folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label"
-    #folder = Path(folder_path)
-    #for file in folder.iterdir():
-    #    img = Image.open(file)
-    #    arr = np.asarray(img).astype(np.uint8)
-    #    rgb = to_rgb(arr)
-    #    img = Image.fromarray(rgb)
-    #    img.save(rf"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label_v\{file.stem}.png")
-    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\src\dataset_3_before_correct_labels\final_raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\src\dataset_3_before_correct_labels\raw_png")
+    for file in folder.iterdir():
+        img = Image.open(file)
+        resized = img.resize((width, height), Image.BILINEAR)
+        resized.save(save_folder / file.name)
+
+def resize_all_masks_in_folder(folder_path, save_folder_path, width, height):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for file in folder.iterdir():
+        img = Image.open(file)
+        resized = img.resize((width, height), Image.NEAREST)
+        resized.save(save_folder / file.name)
+
+
+if __name__ == "__main__":
+    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\train\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\train\raw", 1024, 704)
+    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\test\raw", 1024, 704)
+    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\train\label", 1024, 704)
+    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\test\label", 1024, 704)

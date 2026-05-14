@@ -45,11 +45,11 @@ class SyntheticDataset(Dataset):
     
 
 transform_pipeline = A.Compose([
-        A.RandomCrop(width=1200, height=1200, p=0.5),
+        #A.RandomCrop(width=1200, height=1200, p=0.5),
         A.RandomRotate90(p=1),
         A.VerticalFlip(p=0.5),
-        #A.GaussNoise(p = 0.5),
-        #A.Normalize(p = 1),
+        A.GaussNoise(p = 0.3),
+        A.Normalize(mean=(0.0,), std=(1.0,), p = 1),
 ])
     
 class SyntheticDatasetAugmented(Dataset):
@@ -83,9 +83,9 @@ class SyntheticDatasetAugmented(Dataset):
         raw_image = raw_image[:, :, np.newaxis]
         label_image = label_image[:, :, np.newaxis]
 
-        #transformed_data = transform_pipeline(image = raw_image, mask = label_image)
-        #raw_image = transformed_data["image"]
-        #label_image = transformed_data["mask"]
+        transformed_data = transform_pipeline(image = raw_image, mask = label_image)
+        raw_image = transformed_data["image"]
+        label_image = transformed_data["mask"]
 
         raw_image = torch.tensor(np.transpose(raw_image, (2, 0, 1)), dtype=torch.float32)
         label_image = torch.tensor(np.transpose(label_image, (2, 0, 1)), dtype=torch.long)
