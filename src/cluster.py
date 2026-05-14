@@ -40,8 +40,8 @@ if __name__ == "__main__":
 
     # --------------- Test ----------------------
 
-    raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\raw"
-    label_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\synthetic_dataset\test\label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset/test/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/synthetic_dataset/test/label"
     #raw_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/raw"
     #label_dir1 = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/label"
 #
