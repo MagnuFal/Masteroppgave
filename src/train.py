@@ -63,7 +63,7 @@ def optimization_loop(model, save_path,  tr_loader, vl_loader, epochs = 300, wei
     if weights != None:
         weights = weights.to(device)
     file_path = Path(save_path)
-    loss_log = f"{file_path.stem}.txt"
+    loss_log = file_path.with_name("loss.txt")
     with open(loss_log, "a") as f:
         f.write(f"Epoch, Val_Loss, Train_Loss, lr, X.grad\n")
     best_val_loss = 0

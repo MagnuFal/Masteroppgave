@@ -94,27 +94,31 @@ def raw_and_label_from_folder(script_folder_path, needle_folder_path,
             v_raw_img.save(f"{v_raw_folder_path}\{stem}.png")
 
 
-def resize_all_SEM_images_in_folder(folder_path, save_folder_path, width, height):
+def resize_all_SEM_images_in_folder(folder_path, save_folder_path):
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
 
     for file in folder.iterdir():
         img = Image.open(file)
+        width, height = np.asarray(img).shape
+        width, height = int(width / 2.5), int(height / 2.5)
         resized = img.resize((width, height), Image.BILINEAR)
         resized.save(save_folder / file.name)
 
-def resize_all_masks_in_folder(folder_path, save_folder_path, width, height):
+def resize_all_masks_in_folder(folder_path, save_folder_path):
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
 
     for file in folder.iterdir():
         img = Image.open(file)
+        width, height = np.asarray(img).shape
+        width, height = int(width / 2.5), int(height / 2.5)
         resized = img.resize((width, height), Image.NEAREST)
         resized.save(save_folder / file.name)
 
 
 if __name__ == "__main__":
-    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\train\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\train\raw", 1024, 704)
-    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\test\raw", 1024, 704)
-    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\train\label", 1024, 704)
-    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved_resized\test\label", 1024, 704)
+    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\train\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\train\raw")
+    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\test\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\test\raw")
+    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\train\label")
+    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\test\label")

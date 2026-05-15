@@ -42,7 +42,7 @@ def confusion_matrix_from_folder(pred_folder_path, label_folder_path):
 
     ConfusionMatrixDisplay.from_predictions(y_true=total_label_arr, y_pred=total_pred_arr, normalize = "true", cmap="Blues", display_labels=class_names)
 
-    plt.savefig(r"C:\Users\magfa\Documents\Master\Masteroppgave\figures\MasterFigures\cm_improved_dataset_2.png", dpi = 1300, bbox_inches="tight")   
+    plt.savefig(r"C:\Users\magfa\Documents\Master\Masteroppgave\figures\MasterFigures\cm_dataset_1_re_train.png", dpi = 1300, bbox_inches="tight")   
 
 
 
@@ -95,5 +95,5 @@ if __name__ == "__main__":
 
 
 
-    confusion_matrix_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions_argmax",
-                                 r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_test_set\label")
+    confusion_matrix_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_1_re_training_with_val_train_loss\predictions_argmax",
+                                 r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\test\label")
