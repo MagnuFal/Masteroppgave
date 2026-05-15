@@ -102,7 +102,7 @@ def resize_all_SEM_images_in_folder(folder_path, save_folder_path):
         img = Image.open(file)
         width, height = np.asarray(img).shape
         width, height = int(width / 2.5), int(height / 2.5)
-        resized = img.resize((width, height), Image.BILINEAR)
+        resized = img.resize((height, width), Image.BILINEAR)
         resized.save(save_folder / file.name)
 
 def resize_all_masks_in_folder(folder_path, save_folder_path):
@@ -113,7 +113,7 @@ def resize_all_masks_in_folder(folder_path, save_folder_path):
         img = Image.open(file)
         width, height = np.asarray(img).shape
         width, height = int(width / 2.5), int(height / 2.5)
-        resized = img.resize((width, height), Image.NEAREST)
+        resized = img.resize((height, width), Image.NEAREST)
         resized.save(save_folder / file.name)
 
 

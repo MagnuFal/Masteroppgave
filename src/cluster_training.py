@@ -10,8 +10,8 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 if __name__ == "__main__":
     
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04_resized/train/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04_resized/train/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/train/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/train/label"
     ##raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/raw"
     ##label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/two step model phase differentiation/train/label"
     ##raw_dir = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\sanity_test\raw"
@@ -29,11 +29,11 @@ if __name__ == "__main__":
     train_loader = DataLoader(train_set, shuffle=True, batch_size=1)
     val_loader = DataLoader(val_set, shuffle=False, batch_size=1)
 ##
-    training_weights = torch.tensor([0.002806, 0.271925, 0.058603])
+    training_weights = torch.tensor([0.003303, 0.203319, 0.126711])
 ##
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/improved_synthetic_2_redone_15_04_resized/run1.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/run2_with_pretrained_weights.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
-    #checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/re_test_improved_dataset_2_with_train_val_loss_15_04_26.pth", weights_only=True, map_location=torch.device(device))
-    #model.load_state_dict(checkpoint['model_state_dict']) 
-    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 300, lr=10**-3)
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/improved_synthetic_2_redone_15_04_resized/run1.pth", weights_only=True, map_location=torch.device(device))
+    model.load_state_dict(checkpoint['model_state_dict']) 
+    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 400, lr=10**-3)
