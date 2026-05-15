@@ -79,8 +79,8 @@ def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
 if __name__ == "__main__":
-    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_1_re_training_with_val_train_loss\predictions_argmax"
-    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_1_re_training_with_val_train_loss\predictions_argmax_v"
+    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\test\label"
+    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\test\label_v"
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
 
