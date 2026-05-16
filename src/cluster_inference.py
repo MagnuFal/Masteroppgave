@@ -9,18 +9,18 @@ from torchinfo import summary
 
     # --------------- Test ----------------------
 if __name__ == "__main__":
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04_resized/test/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/improved_synthetic_2_redone_15_04_resized/test/label"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/raw"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/label"
 
     dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
 
     test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet()
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/improved_synthetic_2_redone_15_04_resized/run1.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/run2_with_pretrained_weights.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/improved_synthetic_2_redone_15_04_resized/predictions_argmax")
+    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/predictions_argmax")
 #
     #dataset = SyntheticDatasetAugmented(raw_dir3, label_dir3)
 #
