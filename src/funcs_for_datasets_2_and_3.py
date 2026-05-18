@@ -63,8 +63,9 @@ def add_same_str_to_stem_in_folder(folder_path, str = None, str2 = None):
 def convert_folder_from_tif_to_png(folder_path, save_folder_path):
     folder = Path(folder_path)
     for file in folder.iterdir():
-        img = Image.open(file)
-        img.save(f"{save_folder_path}\{file.stem}.png")
+        if file.suffix == ".tif":
+            img = Image.open(file)
+            img.save(f"{save_folder_path}\{file.stem}.png")
 
 def raw_and_label_from_folder(script_folder_path, needle_folder_path,
                                label_folder_path, v_label_folder_path,
@@ -118,7 +119,5 @@ def resize_all_masks_in_folder(folder_path, save_folder_path):
 
 
 if __name__ == "__main__":
-    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\train\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\train\raw")
-    resize_all_SEM_images_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\test\raw", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\test\raw")
-    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\train\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\train\label")
-    resize_all_masks_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\test\label", r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04_resized\test\label")
+    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png")

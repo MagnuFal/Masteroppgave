@@ -213,3 +213,5 @@ __marimo__/
 *.zip
 *.json
 *.ipynb
+*.tiff
+*.xlsx

@@ -9,18 +9,18 @@ from torchinfo import summary
 
     # --------------- Test ----------------------
 if __name__ == "__main__":
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/raw"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/dataset_3_improved_resized/test/label"
+    raw_dir = r"/cluster/home/magnufal/Master\Masteroppgave\data\2022.09.28_S3400N_PhysMet_IBA_png"
+    label_dir = r"/cluster/home/magnufal/Master\Masteroppgave\data\2022.09.28_S3400N_PhysMet_IBA_png"
 
     dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
 
     test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet()
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/run2_with_pretrained_weights.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/predictions_argmax")
+    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/2022.09.28_S3400N_PhysMet_IBA_png_run_1/predictions_argmax")
 #
     #dataset = SyntheticDatasetAugmented(raw_dir3, label_dir3)
 #
