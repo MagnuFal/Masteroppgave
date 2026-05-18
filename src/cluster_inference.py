@@ -9,8 +9,8 @@ from torchinfo import summary
 
     # --------------- Test ----------------------
 if __name__ == "__main__":
-    raw_dir = r"/cluster/home/magnufal/Master\Masteroppgave\data\2022.09.28_S3400N_PhysMet_IBA_png"
-    label_dir = r"/cluster/home/magnufal/Master\Masteroppgave\data\2022.09.28_S3400N_PhysMet_IBA_png"
+    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/2022.09.28_S3400N_PhysMet_IBA_png"
+    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/2022.09.28_S3400N_PhysMet_IBA_png"
 
     dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
 
