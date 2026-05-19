@@ -32,8 +32,8 @@ if __name__ == "__main__":
     training_weights = torch.tensor([0.003303, 0.203319, 0.126711])
 ##
     model = UNet()
-    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_2/run2_with_pretrained_weights.pth"
+    sv_pt = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/dataset_3_improved_resized_run_3/run3_with_pretrained_weights.pth"
     #sv_pt = r"C:\Users\magfa\Documents\Master\Masteroppgave\machine_learning/sanity_test.pth"
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/improved_synthetic_2_redone_15_04_resized/run1.pth", weights_only=True, map_location=torch.device(device))
     model.load_state_dict(checkpoint['model_state_dict']) 
-    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 400, lr=10**-3)
+    optimization_loop(model, save_path=sv_pt, tr_loader=train_loader, vl_loader=val_loader, weights=training_weights, epochs= 2000, lr=10**-3)

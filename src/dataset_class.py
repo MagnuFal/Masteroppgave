@@ -49,6 +49,9 @@ transform_pipeline = A.Compose([
         A.RandomRotate90(p=1),
         A.VerticalFlip(p=0.5),
         A.GaussNoise(p = 0.3),
+        A.RandomBrightnessContrast(brightness_limit = (-0.2, 0.2),
+                                   contrast_limit = (-0.2, 0.2), p = 1),
+        A.GaussianBlur(blur_limit=(3,5), p=0.4),
         A.Normalize(mean=(0.0,), std=(1.0,), p = 1),
 ])
     
@@ -67,25 +70,17 @@ class SyntheticDatasetAugmented(Dataset):
         raw_img = Image.open(raw_img_path)
         raw_image = np.asarray(raw_img)
 
-        #zero_array = np.zeros((385, 2560))
-
-        #raw_image = np.concatenate([raw_image, zero_array], axis=0)
-        #raw_image = np.concatenate([zero_array, raw_image], axis=0)
-
         label_iter_folder = list(Path(self.label_dir).iterdir())
         label_image_path = label_iter_folder[index]
         label_img = Image.open(label_image_path)
         label_image = np.asarray(label_img)
 
-        #label_image = np.concatenate([label_image, zero_array], axis=0)
-        #label_image = np.concatenate([zero_array, label_image], axis=0)
-
         raw_image = raw_image[:, :, np.newaxis]
         label_image = label_image[:, :, np.newaxis]
 
-        #transformed_data = transform_pipeline(image = raw_image, mask = label_image)
-        #raw_image = transformed_data["image"]
-        #label_image = transformed_data["mask"]
+        transformed_data = transform_pipeline(image = raw_image, mask = label_image)
+        raw_image = transformed_data["image"]
+        label_image = transformed_data["mask"]
 
         raw_image = torch.tensor(np.transpose(raw_image, (2, 0, 1)), dtype=torch.float32)
         label_image = torch.tensor(np.transpose(label_image, (2, 0, 1)), dtype=torch.long)
