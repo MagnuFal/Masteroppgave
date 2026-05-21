@@ -117,7 +117,17 @@ def resize_all_masks_in_folder(folder_path, save_folder_path):
         resized = img.resize((height, width), Image.NEAREST)
         resized.save(save_folder / file.name)
 
+def remove_scalebar_in_folder(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for file in folder.iterdir():
+        img = Image.open(file)
+        arr = np.asarray(img)
+        arr = arr[:1790, :]
+        img = Image.fromarray(arr)
+        img.save(save_folder / file.name)
 
 if __name__ == "__main__":
-    convert_folder_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png")
+    remove_scalebar_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png",
+                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free")
