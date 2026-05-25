@@ -67,6 +67,14 @@ def convert_folder_from_tif_to_png(folder_path, save_folder_path):
             img = Image.open(file)
             img.save(f"{save_folder_path}\{file.stem}.png")
 
+def convert_all_folders_from_tif_to_png(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for dir in folder.iterdir():
+        if dir.is_dir():
+            convert_folder_from_tif_to_png(dir, save_folder / dir.stem)
+
 def raw_and_label_from_folder(script_folder_path, needle_folder_path,
                                label_folder_path, v_label_folder_path,
                                raw_folder_path = None, v_raw_folder_path = None):
@@ -122,12 +130,24 @@ def remove_scalebar_in_folder(folder_path, save_folder_path):
     save_folder = Path(save_folder_path)
 
     for file in folder.iterdir():
-        img = Image.open(file)
-        arr = np.asarray(img)
-        arr = arr[:1790, :]
-        img = Image.fromarray(arr)
-        img.save(save_folder / file.name)
+        if file.suffix == ".tif":
+            img = Image.open(file)
+            arr = np.asarray(img)
+            cutoff = int(arr.shape[0] * 0.934)
+            print(arr.shape)
+            arr = arr[:cutoff, :]
+            print(arr.shape)
+            img = Image.fromarray(arr)
+            img.save(save_folder / file.name)
+
+def remove_all_scalebars_in_all_folders(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for dir in folder.iterdir():
+        if dir.is_dir():
+            remove_scalebar_in_folder(dir, save_folder / dir.stem)
 
 if __name__ == "__main__":
-    remove_scalebar_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png",
-                                   r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free")
+    convert_all_folders_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\Old Cast from Ali\Old Cast without scalebar",
+                                        r"C:\Users\magfa\Documents\Master\Masteroppgave\data\Old Cast from Ali\Old Cast without scalebar png")

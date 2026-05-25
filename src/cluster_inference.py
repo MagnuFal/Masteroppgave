@@ -5,22 +5,26 @@ from train import optimization_loop, train_model, evaluate_model
 from test import model_test
 import torch
 from torchinfo import summary
+from pathlib import Path
 
 
     # --------------- Test ----------------------
 if __name__ == "__main__":
-    raw_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free"
-    label_dir = r"/cluster/home/magnufal/Master/Masteroppgave/data/2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free"
-
-    dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
-
-    test_loader = DataLoader(dataset, shuffle=False)
 
     model = UNet()
     checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device('cpu'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    model_test(model, test_loader, save_folder_path = r"/cluster/home/magnufal/Master/Masteroppgave/experiments/2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free/predictions_argmax")
+    for dir in Path(r"/cluster/home/magnufal/Master/Masteroppgave/data/Old Cast without scalebar png").iterdir():
+        if dir.is_dir():
+            raw_dir = dir
+            label_dir = dir
+
+            dataset = SyntheticDatasetAugmented(raw_dir, label_dir)
+        
+            test_loader = DataLoader(dataset, shuffle=False)
+        
+            model_test(model, test_loader, save_folder_path = Path(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/Old Cast without scalebar png/predictions_argmax") / dir.stem)
 #
     #dataset = SyntheticDatasetAugmented(raw_dir3, label_dir3)
 #
