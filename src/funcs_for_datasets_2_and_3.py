@@ -149,5 +149,11 @@ def remove_all_scalebars_in_all_folders(folder_path, save_folder_path):
             remove_scalebar_in_folder(dir, save_folder / dir.stem)
 
 if __name__ == "__main__":
-    convert_all_folders_from_tif_to_png(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\Old Cast from Ali\Old Cast without scalebar",
-                                        r"C:\Users\magfa\Documents\Master\Masteroppgave\data\Old Cast from Ali\Old Cast without scalebar png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1pm/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1ps/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2pm/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2ps/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3pm/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3ps/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6pm/raw_png")
+    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6ps/raw_png")

@@ -78,9 +78,7 @@ def confidence_predictions_argmax_from_folder_rgb(folder_path, save_folder_path1
         argmax.save(f"{save_folder_path1}\{file.stem}.png")
         argmax_v.save(f"{save_folder_path2}\{file.stem}.png")
 
-if __name__ == "__main__":
-    folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free\predictions_argmax"
-    save_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free\predictions_argmax_v"
+def argmax_to_8_bit(folder_path, save_folder_path):
     folder = Path(folder_path)
     save_folder = Path(save_folder_path)
 
@@ -91,4 +89,16 @@ if __name__ == "__main__":
         rgb = to_rgb(arr).astype(np.uint8)
         img = Image.fromarray(rgb)
         img.save(save_folder / file.name)
+
+def argmax_to_8_bit_for_all_folders_in_folder(folder_path, save_folder_path):
+    folder = Path(folder_path)
+    save_folder = Path(save_folder_path)
+
+    for dir in folder.iterdir():
+        if dir.is_dir():
+            argmax_to_8_bit(dir, save_folder / dir.stem)
+
+if __name__ == "__main__":
+    argmax_to_8_bit_for_all_folders_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Old Cast without scalebar png\predictions_argmax",
+                                              r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Old Cast without scalebar png\predictions_argmax_v")
         
