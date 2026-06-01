@@ -37,11 +37,11 @@ def confusion_matrix_from_folder(pred_folder_path, label_folder_path, save_path)
     for arr in label_lst:
         total_label_arr = np.concatenate((total_label_arr.flatten(), arr.flatten()))
 
-    class_names = ["No Phase", "Platelet", "Script"]
+    class_names = ["Bgrd", "Platelet", "Script"]
 
     ConfusionMatrixDisplay.from_predictions(y_true=total_label_arr, y_pred=total_pred_arr, normalize = "true", cmap="Blues", display_labels=class_names)
 
-    plt.savefig(save_path, dpi = 1300, bbox_inches="tight")   
+    plt.savefig(save_path, dpi = 300, bbox_inches="tight")   
 
 def get_stats_from_folder(pred_folder_path, label_folder_path):
     pred_folder = Path(pred_folder_path)
@@ -72,16 +72,29 @@ def get_stats_from_folder(pred_folder_path, label_folder_path):
 
 if __name__ == "__main__":
 
-    pred_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\predictions_argmax_wout_logits_norm"
-    label_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label"
 
-    tp, fp, fn, tn = get_stats_from_folder(pred_folder_path, label_folder_path)
+    confusion_matrix_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_1_re_training_with_val_train_loss\predictions_argmax",
+                                 r"C:\Users\magfa\Documents\Master\Masteroppgave\data\synthetic_dataset_1\test\label",
+                                 r"C:\Users\magfa\Documents\Master\Masteroppgave\figures\MasterFigures\cm_model_1_pdf.pdf")
+    
+    confusion_matrix_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\improved_dataset_2\improved_dataset_2_re_training_with_recorded_train_and_val_loss\re_test_test_set_predictions_argmax",
+                             r"C:\Users\magfa\Documents\Master\Masteroppgave\data\improved_synthetic_2_redone_15_04\test\label",
+                             r"C:\Users\magfa\Documents\Master\Masteroppgave\figures\MasterFigures\cm_model_2_pdf.pdf")
 
-    print(f"IoU: {(tp[0][0])/(tp[0][0] + fn[0][0] + fp[0][0]), (tp[0][1])/(tp[0][1] + fn[0][1] + fp[0][1]), (tp[0][2])/(tp[0][2] + fn[0][2] + fp[0][2])}")
-    print(f"Dice Score: {(2 * tp[0][0])/(2 * tp[0][0] + fn[0][0] + fp[0][0]), (2 * tp[0][1])/(2 * tp[0][1] + fn[0][1] + fp[0][1]), (2 * tp[0][2])/(2 * tp[0][2] + fn[0][2] + fp[0][2])}")
-    print(f"Precision: {(tp[0][0])/(tp[0][0] + fp[0][0]), (tp[0][1])/(tp[0][1] + fp[0][1]), (tp[0][2])/(tp[0][2] + fp[0][2])}")
-    print(f"Recall: {(tp[0][0])/(tp[0][0] + fn[0][0]), (tp[0][1])/(tp[0][1] + fn[0][1]), (tp[0][2])/(tp[0][2] + fn[0][2])}")
-    print(f"Pixel Accuracy: {(tp[0][0] + tn[0][0])/(tp[0][0] + tn[0][0] + fn[0][0] + fp[0][0]), (tp[0][1] + tn[0][1])/(tp[0][1] + tn[0][1] + fn[0][1] + fp[0][1]), (tp[0][2] + tn[0][2])/(tp[0][2] + tn[0][2] + fn[0][2] + fp[0][2])}")
+    confusion_matrix_from_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\predictions_argmax_wout_logits_norm",
+                             r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label",
+                             r"C:\Users\magfa\Documents\Master\Masteroppgave\figures\MasterFigures\cm_model_3_pdf.pdf")
+
+    #pred_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\dataset_3\dataset_3_improved_first_run\predictions_argmax_wout_logits_norm"
+    #label_folder_path = r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label"
+#
+    #tp, fp, fn, tn = get_stats_from_folder(pred_folder_path, label_folder_path)
+#
+    #print(f"IoU: {(tp[0][0])/(tp[0][0] + fn[0][0] + fp[0][0]), (tp[0][1])/(tp[0][1] + fn[0][1] + fp[0][1]), (tp[0][2])/(tp[0][2] + fn[0][2] + fp[0][2])}")
+    #print(f"Dice Score: {(2 * tp[0][0])/(2 * tp[0][0] + fn[0][0] + fp[0][0]), (2 * tp[0][1])/(2 * tp[0][1] + fn[0][1] + fp[0][1]), (2 * tp[0][2])/(2 * tp[0][2] + fn[0][2] + fp[0][2])}")
+    #print(f"Precision: {(tp[0][0])/(tp[0][0] + fp[0][0]), (tp[0][1])/(tp[0][1] + fp[0][1]), (tp[0][2])/(tp[0][2] + fp[0][2])}")
+    #print(f"Recall: {(tp[0][0])/(tp[0][0] + fn[0][0]), (tp[0][1])/(tp[0][1] + fn[0][1]), (tp[0][2])/(tp[0][2] + fn[0][2])}")
+    #print(f"Pixel Accuracy: {(tp[0][0] + tn[0][0])/(tp[0][0] + tn[0][0] + fn[0][0] + fp[0][0]), (tp[0][1] + tn[0][1])/(tp[0][1] + tn[0][1] + fn[0][1] + fp[0][1]), (tp[0][2] + tn[0][2])/(tp[0][2] + tn[0][2] + fn[0][2] + fp[0][2])}")
 
     #img1 = Image.open(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label\Mask of org_6nbr_7_upscaled_6pm.png")
     #img2 = Image.open(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\dataset_3_improved\test\label\Mask of org_7nbr_1_upscaled_6pm.png")

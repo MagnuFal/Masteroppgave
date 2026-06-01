@@ -12,10 +12,10 @@ from pathlib import Path
 if __name__ == "__main__":
 
     model = UNet()
-    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device('cpu'))
+    checkpoint = torch.load(r"/cluster/home/magnufal/Master/Masteroppgave/machine_learning/dataset_3_improved_first_run.pth", weights_only=True, map_location=torch.device('cuda'))
     model.load_state_dict(checkpoint['model_state_dict'])
 
-    for dir in Path(r"/cluster/home/magnufal/Master/Masteroppgave/data/Old Cast without scalebar png").iterdir():
+    for dir in Path(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/Fe tilsetning og kjolerate inference/raw_images").iterdir():
         if dir.is_dir():
             raw_dir = dir
             label_dir = dir
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         
             test_loader = DataLoader(dataset, shuffle=False)
         
-            model_test(model, test_loader, save_folder_path = Path(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/Old Cast without scalebar png/predictions_argmax") / dir.stem)
+            model_test(model, test_loader, save_folder_path = Path(r"/cluster/home/magnufal/Master/Masteroppgave/experiments/Fe tilsetning og kjolerate inference/argmax") / (dir.stem + r"_argmax"))
 #
     #dataset = SyntheticDatasetAugmented(raw_dir3, label_dir3)
 #
