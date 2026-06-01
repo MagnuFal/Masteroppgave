@@ -65,7 +65,7 @@ def convert_folder_from_tif_to_png(folder_path, save_folder_path):
     for file in folder.iterdir():
         if file.suffix == ".tif":
             img = Image.open(file)
-            img.save(f"{save_folder_path}\{file.stem}.png")
+            img.save(f"{save_folder_path}/{file.stem}.png")
 
 def convert_all_folders_from_tif_to_png(folder_path, save_folder_path):
     folder = Path(folder_path)
