@@ -148,12 +148,25 @@ def remove_all_scalebars_in_all_folders(folder_path, save_folder_path):
         if dir.is_dir():
             remove_scalebar_in_folder(dir, save_folder / dir.stem)
 
+def pixelsize_250_to_50(img_path, save_folder_path):
+    path = Path(img_path)
+    save_folder = Path(save_folder_path)
+    img = Image.open(img_path)
+    arr = np.asarray(img)
+    h, w = arr.shape
+    new_h, new_w = int(h / 5), int(w / 5)
+    lst = [arr[i*new_h:(i+1)*new_h, j*new_w:(j+1)*new_w] for i in range(5) for j in range(5)]
+    resized_arr = [Image.fromarray(array).resize((2560, 1790), Image.BILINEAR) for array in lst]
+    for image in resized_arr:
+        image.save(save_folder / (path.stem + rf"_{resized_arr.index(image)}.png"))
+
+def pixelsize_250_to_50_for_folder(folder_path, save_folder_path):
+    folder = Path(folder_path)
+
+    for file in folder.iterdir():
+        pixelsize_250_to_50(file, save_folder_path)
+
+
 if __name__ == "__main__":
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1pm/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_1ps/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2pm/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_2ps/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3pm/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_3ps/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6pm/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6pm/raw_png")
-    convert_folder_from_tif_to_png(r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6ps/raw", r"/cluster/home/magnufal/Prosjekt/dataset_250_1000_og_4000_6ps/raw_png")
+    pixelsize_250_to_50_for_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free\250_pixelsize",
+                        r"C:\Users\magfa\Documents\Master\Masteroppgave\data\SEM IBA mynter og staver\2022.09.28_S3400N_PhysMet_IBA_png_scalebar_free\250_pixelsize_to_50")

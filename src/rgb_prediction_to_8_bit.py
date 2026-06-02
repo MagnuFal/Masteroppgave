@@ -99,6 +99,6 @@ def argmax_to_8_bit_for_all_folders_in_folder(folder_path, save_folder_path):
             argmax_to_8_bit(dir, save_folder / dir.stem)
 
 if __name__ == "__main__":
-    argmax_to_8_bit_for_all_folders_in_folder(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Old Cast without scalebar png\predictions_argmax",
-                                              r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Old Cast without scalebar png\predictions_argmax_v")
+    argmax_to_8_bit(r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Fe tilsetning og kjolerate inference\argmax\raw_png_6ps_argmax",
+                                              r"C:\Users\magfa\Documents\Master\Masteroppgave\experiments\Fe tilsetning og kjolerate inference\argmax_v\raw_png_6ps_argmax_v")
         
